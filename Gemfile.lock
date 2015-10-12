@@ -1,0 +1,61 @@
+GIT
+  remote: https://github.com/wata-gh/itamae-plugin-recipe-rtn_rbenv.git
+  revision: bad2ba9223de2c0780a69f3f2b30e1946ec4ad86
+  specs:
+    itamae-plugin-recipe-rtn_rbenv (0.1.2)
+      itamae (~> 1.5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (4.2.4)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    ansi (1.5.0)
+    hashie (3.4.2)
+    i18n (0.7.0)
+    itamae (1.6.1)
+      ansi
+      hashie
+      schash (~> 0.1.0)
+      specinfra (>= 2.37.0, < 3.0.0)
+      thor
+    itamae-plugin-recipe-selinux (0.0.5)
+      itamae
+    itamae-plugin-resource-ssh_key (0.0.1)
+      itamae
+    json (1.8.3)
+    minitest (5.8.1)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
+    net-telnet (0.1.1)
+    rubysl-shellwords (2.0.0)
+    schash (0.1.2)
+    sfl (2.2)
+    specinfra (2.44.0)
+      net-scp
+      net-ssh (~> 2.7)
+      net-telnet
+      sfl
+    thor (0.19.1)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activesupport
+  itamae
+  itamae-plugin-recipe-rtn_rbenv!
+  itamae-plugin-recipe-selinux
+  itamae-plugin-resource-ssh_key
+  rubysl-shellwords
+
+BUNDLED WITH
+   1.10.5

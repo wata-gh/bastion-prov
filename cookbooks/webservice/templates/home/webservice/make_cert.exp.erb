@@ -1,0 +1,35 @@
+#!/usr/bin/expect -f
+
+set force_conservative 0  ;# set to 1 to force conservative mode even if
+			  ;# script wasn't run conservatively originally
+if {$force_conservative} {
+	set send_slow {1 .1}
+	proc send {ignore arg} {
+		sleep .1
+		exp_send -s -- $arg
+	}
+}
+
+set timeout -1
+spawn /home/webservice/mod_ssl-<%= node[:mod_ssl][:version] %>/pkg.contrib/sign.sh server.csr
+match_max 100000
+expect -exact "CA signing: server.csr -> server.crt:\r
+Using configuration from ca.config\r
+Enter pass phrase for ./ca.key:"
+send -- "bastion\r"
+expect "Check that the request matches the signature\r
+Signature ok\r
+The Subject*\r
+countryName           :PRINTABLE:'*'\r
+stateOrProvinceName   :ASN.1 12:'*'\r
+localityName          :ASN.1 12:'*'\r
+commonName            :ASN.1 12:'*'\r
+Certificate is to be certified until *days)\r
+Sign the certificate? *:"
+send -- "y\r"
+expect -exact "y\r
+\r
+\r
+1 out of 1 certificate requests certified, commit? \[y/n\]"
+send -- "y\r"
+expect eof

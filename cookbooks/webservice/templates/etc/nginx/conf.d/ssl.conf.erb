@@ -1,0 +1,31 @@
+# HTTPS server
+#
+upstream unicorn {
+  server unix:/opt/bastion/tmp/socket/bastion_unicorn.sock;
+}
+
+server {
+    listen       443 ssl;
+    #server_name  <%= node[:cert][:common_name] %>;
+
+    ssl_certificate        /opt/bastion/ccert/server.crt;
+    ssl_certificate_key    /opt/bastion/ccert/server.key;
+    ssl_client_certificate /opt/bastion/ccert/ca.crt;
+    ssl_verify_client      optional_no_ca;
+
+    ssl_session_cache shared:SSL:1m;
+    ssl_session_timeout  5m;
+
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers   on;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        if ($ssl_client_verify != SUCCESS) {
+            return 403;
+        }
+        proxy_pass http://unicorn;
+    }
+}
