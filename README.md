@@ -69,4 +69,4 @@ $6$salt$...
 
 ```shell
 bundle exec itamae ssh -u ec2-user -h [ec2 instance host] -j nodes/bastion.json roles/bastion.rb
-``
+```
